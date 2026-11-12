@@ -31,7 +31,14 @@ function Login() {
     setBusy(true);
     const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
     setBusy(false);
-    if (error) { toast.error(error.message); return; }
+    if (error) {
+      toast.error(
+        error.message === "Email not confirmed"
+          ? "Please confirm your email first — check your inbox for the link we sent."
+          : error.message,
+      );
+      return;
+    }
     toast.success("Welcome back!");
     navigate({ to: "/browse" });
   };
@@ -43,6 +50,7 @@ function Login() {
         <div className="space-y-2"><Label htmlFor="pw">Password</Label><Input id="pw" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} /></div>
         <Button type="submit" className="w-full" disabled={busy}>{busy ? "Logging in..." : "Login"}</Button>
         <GoogleButton />
+        <p className="text-center text-sm"><Link to="/forgot-password" className="font-medium text-primary hover:underline">Forgot password?</Link></p>
         <p className="text-center text-sm text-muted-foreground">New here? <Link to="/signup" className="font-semibold text-primary">Sign up</Link></p>
       </form>
     </main>

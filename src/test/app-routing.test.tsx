@@ -14,4 +14,12 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+
+  it("matches real pages for the email password-reset routes", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+
+    for (const path of ["/forgot-password", "/reset-password"]) {
+      expect(router.matchRoutes(path).at(-1)?.routeId).not.toBe(rootRouteId);
+    }
+  });
 });

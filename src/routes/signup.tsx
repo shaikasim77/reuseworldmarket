@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,7 @@ export const Route = createFileRoute("/signup")({
 });
 
 function Signup() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -30,9 +31,14 @@ function Signup() {
     e.preventDefault();
     if (password.length < 6) { toast.error("Password must be at least 6 characters"); return; }
     setBusy(true);
-    const { error } = await supabase.auth.signUp({ email: email.trim(), password, options: { emailRedirectTo: window.location.origin } });
+    const { data, error } = await supabase.auth.signUp({ email: email.trim(), password, options: { emailRedirectTo: window.location.origin } });
     setBusy(false);
     if (error) { toast.error(error.message); return; }
+    if (data.session) {
+      toast.success("Account created!");
+      navigate({ to: "/browse" });
+      return;
+    }
     setSent(true);
   };
   return (
