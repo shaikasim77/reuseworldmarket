@@ -36,7 +36,7 @@ function Login() {
     navigate({ to: "/browse" });
   };
   return (
-    <main className="bg-hero flex min-h-[calc(100vh-57px)] items-center justify-center px-4 py-12">
+    <main className="bg-hero flex flex-1 items-center justify-center px-4 py-12">
       <form onSubmit={submit} className="w-full max-w-sm space-y-4 rounded-2xl border border-border bg-card p-8 shadow-soft">
         <h1 className="font-display text-3xl font-bold">Login</h1>
         <div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
