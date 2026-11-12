@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Recycle, Sofa, Shirt, Laptop, BookOpen } from "lucide-react";
+import { Recycle, PackageCheck, Users, Leaf, Sofa, Shirt, Laptop, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
@@ -23,6 +23,12 @@ const cats = [
   { icon: BookOpen, label: "Books" },
 ];
 
+const stats = [
+  { icon: PackageCheck, value: "500+", label: "Items Reused" },
+  { icon: Users, value: "200+", label: "Happy Users" },
+  { icon: Leaf, value: "1000kg", label: "Waste Reduced" },
+];
+
 function Index() {
   return (
     <main className="bg-hero min-h-[calc(100vh-57px)]">
@@ -40,6 +46,17 @@ function Index() {
           <Button asChild size="lg" className="shadow-soft"><Link to="/post">Post an Item</Link></Button>
           <Button asChild size="lg" variant="outline"><Link to="/browse">Browse Items</Link></Button>
         </div>
+      </section>
+      <section className="mx-auto grid max-w-4xl grid-cols-1 gap-4 px-4 pb-12 sm:grid-cols-3">
+        {stats.map(({ icon: Icon, value, label }) => (
+          <div key={label} className="rounded-2xl bg-primary p-6 text-center text-primary-foreground shadow-soft">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary-foreground/15">
+              <Icon className="h-6 w-6" />
+            </div>
+            <p className="mt-3 font-display text-4xl font-extrabold">{value}</p>
+            <p className="mt-1 font-medium opacity-90">{label}</p>
+          </div>
+        ))}
       </section>
       <section className="mx-auto grid max-w-4xl grid-cols-2 gap-4 px-4 pb-20 sm:grid-cols-4">
         {cats.map(({ icon: Icon, label }) => (
