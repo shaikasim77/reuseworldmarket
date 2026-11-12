@@ -36,7 +36,7 @@ function Signup() {
     setSent(true);
   };
   return (
-    <main className="bg-hero flex flex-1 items-center justify-center px-4 py-12">
+    <main className="bg-hero flex min-h-[calc(100vh-57px)] items-center justify-center px-4 py-12">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-8 shadow-soft">
         {sent ? (
           <div className="space-y-3 text-center">

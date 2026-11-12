@@ -41,7 +41,7 @@ function PostItem() {
   if (loading) return <main className="p-10 text-center text-muted-foreground">Loading...</main>;
   if (!user)
     return (
-      <main className="bg-hero flex flex-1 items-center justify-center px-4">
+      <main className="bg-hero flex min-h-[calc(100vh-57px)] items-center justify-center px-4">
         <div className="rounded-2xl border border-border bg-card p-8 text-center shadow-soft">
           <h1 className="font-display text-2xl font-bold">Sign in to post an item</h1>
           <div className="mt-5 flex justify-center gap-3">
@@ -71,7 +71,7 @@ function PostItem() {
   };
 
   return (
-    <main className="bg-hero flex flex-1 px-4 py-12">
+    <main className="bg-hero min-h-[calc(100vh-57px)] px-4 py-12">
       <form onSubmit={submit} className="mx-auto max-w-lg space-y-5 rounded-2xl border border-border bg-card p-8 shadow-soft">
         <h1 className="font-display text-3xl font-bold">Post an Item</h1>
         <div className="space-y-2"><Label htmlFor="name">Item name</Label><Input id="name" maxLength={100} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} /></div>

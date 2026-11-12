@@ -12,7 +12,6 @@ import { useEffect, type ReactNode } from "react";
 
 import { Toaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -85,15 +84,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Reuse World" },
-      {
-        name: "description",
-        content: "Give away what you don't need. Find what you do. Save the planet.",
-      },
+      { name: "description", content: "Give your unused items a second life." },
       { property: "og:title", content: "Reuse World" },
-      {
-        property: "og:description",
-        content: "Give away what you don't need. Find what you do. Save the planet.",
-      },
+      { property: "og:description", content: "Give your unused items a second life." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
@@ -134,13 +127,8 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <div className="flex min-h-screen flex-col">
-        <SiteHeader />
-        <div className="flex flex-1 flex-col">
-          <Outlet />
-        </div>
-        <SiteFooter />
-      </div>
+      <SiteHeader />
+      <Outlet />
       <Toaster richColors />
     </QueryClientProvider>
   );
