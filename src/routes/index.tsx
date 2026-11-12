@@ -46,7 +46,7 @@ const steps = [
 function Index() {
   return (
     <main className="flex flex-1 flex-col bg-hero">
-      <section className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 pt-16 pb-20 text-center sm:pt-24">
+      <section className="mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-4 pt-16 pb-20 text-center sm:pt-24">
         <span className="rounded-full border border-primary/25 bg-secondary px-4 py-1 text-xs font-semibold tracking-wide text-primary uppercase">
           Free to give · Free to take
         </span>
@@ -66,7 +66,7 @@ function Index() {
         </div>
       </section>
 
-      <section className="flex-1 border-t border-border bg-card">
+      <section className="border-t border-border bg-card">
         <div className="mx-auto max-w-6xl px-4 py-16">
           <div className="text-center">
             <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
