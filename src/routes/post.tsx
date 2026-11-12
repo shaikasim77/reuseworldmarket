@@ -55,17 +55,17 @@ function PostItem() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = schema.safeParse(form);
-    if (!parsed.success) return toast.error(parsed.error.issues[0].message);
-    if (!file) return toast.error("Please add a photo");
-    if (!file.type.startsWith("image/")) return toast.error("Photo must be an image");
-    if (file.size > 5 * 1024 * 1024) return toast.error("Photo must be under 5MB");
+    if (!parsed.success) { toast.error(parsed.error.issues[0]?.message ?? "Invalid input"); return; }
+    if (!file) { toast.error("Please add a photo"); return; }
+    if (!file.type.startsWith("image/")) { toast.error("Photo must be an image"); return; }
+    if (file.size > 5 * 1024 * 1024) { toast.error("Photo must be under 5MB"); return; }
     setBusy(true);
     const path = `${user.id}/${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9.]/g, "_")}`;
     const up = await supabase.storage.from("item-photos").upload(path, file);
-    if (up.error) { setBusy(false); return toast.error(up.error.message); }
+    if (up.error) { setBusy(false); toast.error(up.error.message); return; }
     const { error } = await supabase.from("items").insert({ ...parsed.data, user_id: user.id, photo_url: path });
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Item posted!");
     navigate({ to: "/browse" });
   };
