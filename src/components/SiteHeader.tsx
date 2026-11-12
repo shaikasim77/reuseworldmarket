@@ -13,7 +13,7 @@ const navItems = [
 ] as const;
 
 const linkClass =
-  "rounded-lg px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-secondary hover:text-primary data-[active=true]:bg-secondary data-[active=true]:text-primary";
+  "rounded-lg px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-secondary hover:text-primary data-[status=active]:bg-secondary data-[status=active]:text-primary";
 
 export function SiteHeader() {
   const { user } = useAuth();
@@ -41,7 +41,6 @@ export function SiteHeader() {
             <Link
               key={item.label}
               to={item.to}
-              data-active
               activeOptions={{ exact: item.exact }}
               className={linkClass}
             >
@@ -76,7 +75,6 @@ export function SiteHeader() {
             <Link
               key={item.label}
               to={item.to}
-              data-active
               activeOptions={{ exact: item.exact }}
               onClick={() => setOpen(false)}
               className={linkClass}
