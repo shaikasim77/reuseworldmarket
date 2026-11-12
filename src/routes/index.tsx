@@ -66,7 +66,7 @@ function Index() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-card">
+      <section className="flex-1 border-t border-border bg-card">
         <div className="mx-auto max-w-6xl px-4 py-16">
           <div className="text-center">
             <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
