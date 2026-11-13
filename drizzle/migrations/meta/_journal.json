@@ -15,6 +15,13 @@
       "when": 1794565702270,
       "tag": "0001_item_categories_and_condition",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794566151907,
+      "tag": "0002_create_item_requests",
+      "breakpoints": true
     }
   ]
 }
