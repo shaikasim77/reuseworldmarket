@@ -107,7 +107,7 @@ function PostItem() {
         <div className="space-y-2"><Label htmlFor="loc">Location</Label><Input id="loc" maxLength={100} value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} /></div>
         <div className="space-y-2">
           <Label htmlFor="photo">Photo</Label>
-          <Input ref={photoInput} id="photo" className="sr-only" type="file" accept="image/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
+          <Input ref={photoInput} id="photo" className="hidden" type="file" accept="image/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
           <Button type="button" variant="outline" className="w-full" onClick={() => photoInput.current?.click()}><Upload />{file ? "Change photo" : "Upload photo"}</Button>
           {file && <p className="break-all text-sm text-muted-foreground">{file.name}</p>}
         </div>
