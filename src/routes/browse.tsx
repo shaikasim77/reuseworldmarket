@@ -194,8 +194,10 @@ function Browse() {
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((item) => {
-          const isMine = !!user && item.user_id === user.id;
-          const isRequested = !!requested?.has(item.id);
+          const action = cardAction({
+            isMine: !!user && item.user_id === user.id,
+            isRequested: !!requested?.has(item.id),
+          });
           return (
             <article
               key={item.id}

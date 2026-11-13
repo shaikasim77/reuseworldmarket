@@ -50,4 +50,11 @@ describe("browse filters", () => {
   it("returns everything for an empty search on All", () => {
     expect(filterItems(items, { query: "   ", category: "all" })).toHaveLength(items.length);
   });
+
+  it("shows your own item first, then a request you already sent, then the request button", () => {
+    expect(cardAction({ isMine: true, isRequested: false })).toBe("mine");
+    expect(cardAction({ isMine: true, isRequested: true })).toBe("mine");
+    expect(cardAction({ isMine: false, isRequested: true })).toBe("requested");
+    expect(cardAction({ isMine: false, isRequested: false })).toBe("request");
+  });
 });
