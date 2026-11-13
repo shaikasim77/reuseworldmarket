@@ -7,6 +7,10 @@ import { Check, ImageOff, MapPin, Search, X } from "lucide-react";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { requestFormSchema } from "@/lib/item-form";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { itemConditions } from "@/lib/item-form";
@@ -46,6 +50,7 @@ async function fetchItems() {
   const { data, error } = await supabase
     .from("items")
     .select("*")
+    .eq("is_available", true)
     .order("created_at", { ascending: false });
   if (error) throw error;
   const paths = data.map((i) => i.photo_url).filter((p): p is string => !!p);
@@ -77,6 +82,8 @@ function Browse() {
   const queryClient = useQueryClient();
   const { user, loading } = useAuth();
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [contact, setContact] = useState({ name: "", phone: "" });
 
   const { data, isLoading, error } = useQuery({ queryKey: ["items"], queryFn: fetchItems });
   const { data: requested } = useQuery({
@@ -95,28 +102,36 @@ function Browse() {
   const setCategory = (value: BrowseCategory) =>
     navigate({ search: (prev) => ({ ...prev, cat: value }) });
 
-  const requestItem = async (itemId: string) => {
+  const requestItem = (itemId: string) => {
     if (!user) {
       toast.error("Please log in to request an item");
       navigate({ to: "/login" });
       return;
     }
-    if (busyId) return;
-    setBusyId(itemId);
-    const { error: insertError } = await supabase
-      .from("item_requests")
-      .insert({ item_id: itemId, requester_id: user.id });
+    setOpenId(itemId);
+  };
+
+  const sendRequest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user || !openId || busyId) return;
+    const parsed = requestFormSchema.safeParse(contact);
+    if (!parsed.success) { toast.error(parsed.error.issues[0]?.message ?? "Invalid input"); return; }
+    setBusyId(openId);
+    const { error: insertError } = await supabase.from("item_requests").insert({
+      item_id: openId,
+      requester_id: user.id,
+      requester_name: parsed.data.name,
+      requester_phone: parsed.data.phone,
+    });
     setBusyId(null);
     if (insertError) {
-      if (insertError.code === "23505") {
-        toast.error("You've already requested this item");
-        return;
-      }
-      toast.error("Couldn't send your request. Please try again.");
+      toast.error(insertError.code === "23505" ? "You've already requested this item" : "Couldn't send your request. Please try again.");
       return;
     }
+    setOpenId(null);
+    setContact({ name: "", phone: "" });
     await queryClient.invalidateQueries({ queryKey: ["item-requests", user.id] });
-    toast.success("Request sent! The item owner can see it now.");
+    toast.success("Request Sent!");
   };
 
   return (
@@ -260,6 +275,19 @@ function Browse() {
           );
         })}
       </div>
+      <Dialog open={!!openId} onOpenChange={(o) => !o && setOpenId(null)}>
+        <DialogContent>
+          <form onSubmit={sendRequest} className="space-y-4">
+            <DialogHeader>
+              <DialogTitle>Request this item</DialogTitle>
+              <DialogDescription>The owner will get your name and phone number to arrange pickup.</DialogDescription>
+            </DialogHeader>
+            <div className="space-y-2"><Label htmlFor="rq-name">Your name</Label><Input id="rq-name" required maxLength={80} value={contact.name} onChange={(e) => setContact({ ...contact, name: e.target.value })} /></div>
+            <div className="space-y-2"><Label htmlFor="rq-phone">Phone number</Label><Input id="rq-phone" type="tel" required maxLength={20} value={contact.phone} onChange={(e) => setContact({ ...contact, phone: e.target.value })} /></div>
+            <DialogFooter><Button type="submit" className="w-full" disabled={!!busyId}>{busyId ? "Sending..." : "Send Request"}</Button></DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }

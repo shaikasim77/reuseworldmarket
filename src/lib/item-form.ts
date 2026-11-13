@@ -23,3 +23,7 @@ export const itemFormSchema = z.object({
   description: z.string().trim().max(1000),
   location: z.string().trim().min(1, "Location is required").max(100),
 });
+export const requestFormSchema = z.object({
+  name: z.string().trim().min(1, "Please enter your name").max(80, "Name is too long"),
+  phone: z.string().trim().regex(/^\+?[0-9 ()-]{7,20}$/, "Please enter a valid phone number"),
+});

@@ -24,3 +24,11 @@ describe("item posting options", () => {
     expect(itemFormSchema.safeParse({ ...item, description: "x".repeat(1001) }).success).toBe(false);
   });
 });
+import { requestFormSchema } from "@/lib/item-form";
+describe("request form", () => {
+  it("accepts name + phone, rejects bad phone", () => {
+    expect(requestFormSchema.safeParse({ name: "Asim", phone: "+91 98765 43210" }).success).toBe(true);
+    expect(requestFormSchema.safeParse({ name: "Asim", phone: "abc" }).success).toBe(false);
+    expect(requestFormSchema.safeParse({ name: " ", phone: "9876543210" }).success).toBe(false);
+  });
+});

@@ -21,6 +21,8 @@ export type Database = {
           item_id: string
           message: string
           requester_id: string
+          requester_name: string
+          requester_phone: string
           status: string
         }
         Insert: {
@@ -29,6 +31,8 @@ export type Database = {
           item_id: string
           message?: string
           requester_id: string
+          requester_name?: string
+          requester_phone?: string
           status?: string
         }
         Update: {
@@ -37,6 +41,8 @@ export type Database = {
           item_id?: string
           message?: string
           requester_id?: string
+          requester_name?: string
+          requester_phone?: string
           status?: string
         }
         Relationships: [
@@ -56,6 +62,7 @@ export type Database = {
           created_at: string
           description: string
           id: string
+          is_available: boolean
           location: string
           name: string
           photo_url: string | null
@@ -67,6 +74,7 @@ export type Database = {
           created_at?: string
           description?: string
           id?: string
+          is_available?: boolean
           location: string
           name: string
           photo_url?: string | null
@@ -78,6 +86,7 @@ export type Database = {
           created_at?: string
           description?: string
           id?: string
+          is_available?: boolean
           location?: string
           name?: string
           photo_url?: string | null
