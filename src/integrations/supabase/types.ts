@@ -14,6 +14,41 @@ export type Database = {
   }
   public: {
     Tables: {
+      item_requests: {
+        Row: {
+          created_at: string
+          id: string
+          item_id: string
+          message: string
+          requester_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_id: string
+          message?: string
+          requester_id: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_id?: string
+          message?: string
+          requester_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "item_requests_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       items: {
         Row: {
           category: Database["public"]["Enums"]["item_category"]
