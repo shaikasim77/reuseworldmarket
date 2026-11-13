@@ -37,7 +37,12 @@ describe("browse filters", () => {
     expect(filterItems(items, { query: "chair", category: "all" })).toHaveLength(1);
     expect(filterItems(items, { query: "needs repair", category: "all" })).toHaveLength(2);
     expect(filterItems(items, { query: "vizag", category: "all" })).toHaveLength(2);
-    expect(matchesQuery(items[0], "  TEAK  ")).toBe(true);
+    expect(
+      matchesQuery(
+        { name: "Wooden Chair", description: "Solid teak", location: "Tirupathi", category: "furniture" },
+        "  TEAK  ",
+      ),
+    ).toBe(true);
   });
 
   it("combines the search box with the category chip", () => {
