@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { browseFilterCategories, filterItems, matchesQuery } from "../lib/item-browse";
+import {
+  browseFilterCategories,
+  cardAction,
+  filterItems,
+  matchesQuery,
+} from "../lib/item-browse";
 
 const items = [
   { name: "Wooden Chair", description: "Solid teak", location: "Tirupathi", category: "furniture" },

@@ -45,3 +45,18 @@ export function filterItems<T extends FilterableItem>(
       (category === "all" || item.category === category) && matchesQuery(item, query),
   );
 }
+
+export type CardAction = "mine" | "requested" | "request";
+
+/** Which action a card's button shows: your own item, one you already asked for, or requestable. */
+export function cardAction({
+  isMine,
+  isRequested,
+}: {
+  isMine: boolean;
+  isRequested: boolean;
+}): CardAction {
+  if (isMine) return "mine";
+  if (isRequested) return "requested";
+  return "request";
+}
