@@ -13,6 +13,7 @@ import { itemConditions } from "@/lib/item-form";
 import {
   browseCategoryLabel,
   browseFilterCategories,
+  cardAction,
   filterItems,
   type BrowseCategory,
 } from "@/lib/item-browse";
@@ -236,11 +237,11 @@ function Browse() {
                   <p className="line-clamp-2 text-sm text-muted-foreground">{item.description}</p>
                 )}
                 <div className="mt-auto pt-1">
-                  {isMine ? (
+                  {action === "mine" ? (
                     <Button variant="outline" className="w-full" disabled>
                       Your item
                     </Button>
-                  ) : isRequested ? (
+                  ) : action === "requested" ? (
                     <Button variant="secondary" className="w-full" disabled>
                       <Check /> Requested
                     </Button>
