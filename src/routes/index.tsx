@@ -33,7 +33,7 @@ function Index() {
   return (
     <main className="bg-hero min-h-[calc(100vh-57px)]">
       <section className="mx-auto max-w-4xl px-4 pt-20 pb-16 text-center">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-soft">
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-soft ring-4 ring-gold/40">
           <Recycle className="h-8 w-8" />
         </div>
         <h1 className="font-display text-4xl font-extrabold leading-tight text-foreground sm:text-6xl">
@@ -49,8 +49,8 @@ function Index() {
       </section>
       <section className="mx-auto grid max-w-4xl grid-cols-1 gap-4 px-4 pb-12 sm:grid-cols-3">
         {stats.map(({ icon: Icon, value, label }) => (
-          <div key={label} className="rounded-2xl bg-primary p-6 text-center text-primary-foreground shadow-soft">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary-foreground/15">
+          <div key={label} className="rounded-2xl bg-primary p-6 text-center text-primary-foreground shadow-soft ring-1 ring-gold/45">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gold text-gold-foreground">
               <Icon className="h-6 w-6" />
             </div>
             <p className="mt-3 font-display text-4xl font-extrabold">{value}</p>
@@ -60,7 +60,7 @@ function Index() {
       </section>
       <section className="mx-auto grid max-w-4xl grid-cols-2 gap-4 px-4 pb-20 sm:grid-cols-4">
         {cats.map(({ icon: Icon, label }) => (
-          <div key={label} className="rounded-xl border border-border bg-card p-5 text-center">
+          <div key={label} className="rounded-xl border border-border border-b-2 border-b-gold/70 bg-card p-5 text-center">
             <Icon className="mx-auto h-7 w-7 text-primary" />
             <p className="mt-2 font-semibold">{label}</p>
           </div>
