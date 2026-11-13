@@ -18,11 +18,13 @@ export const Route = createFileRoute("/login")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
+  validateSearch: (s: Record<string, unknown>) => ({ redirect: typeof s.redirect === "string" && s.redirect.startsWith("/") && !s.redirect.startsWith("//") ? s.redirect : undefined }),
   component: Login,
 });
 
 function Login() {
   const navigate = useNavigate();
+  const { redirect } = Route.useSearch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -40,12 +42,13 @@ function Login() {
       return;
     }
     toast.success("Welcome back!");
-    navigate({ to: "/browse" });
+    navigate({ to: redirect ?? "/browse" });
   };
   return (
     <main className="bg-hero flex min-h-[calc(100vh-57px)] items-center justify-center px-4 py-12">
       <form onSubmit={submit} className="w-full max-w-sm space-y-4 rounded-2xl border border-border bg-card p-8 shadow-soft">
         <h1 className="font-display text-3xl font-bold">Login</h1>
+        {redirect === "/post" && <p className="text-sm text-muted-foreground">Please log in to post an item.</p>}
         <div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>
         <div className="space-y-2"><Label htmlFor="pw">Password</Label><Input id="pw" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} /></div>
         <Button type="submit" className="w-full" disabled={busy}>{busy ? "Logging in..." : "Login"}</Button>

@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Upload } from "lucide-react";
@@ -41,20 +41,12 @@ function PostItem() {
     setPreview(url);
     return () => URL.revokeObjectURL(url);
   }, [file]);
+  useEffect(() => {
+    if (!loading && !user) navigate({ to: "/login", search: { redirect: "/post" }, replace: true });
+  }, [loading, user, navigate]);
 
   if (loading) return <main className="p-10 text-center text-muted-foreground">Loading...</main>;
-  if (!user)
-    return (
-      <main className="bg-hero flex min-h-[calc(100vh-57px)] items-center justify-center px-4">
-        <div className="rounded-2xl border border-border bg-card p-8 text-center shadow-soft">
-          <h1 className="font-display text-2xl font-bold">Sign in to post an item</h1>
-          <div className="mt-5 flex justify-center gap-3">
-            <Button asChild><Link to="/login">Login</Link></Button>
-            <Button asChild variant="outline"><Link to="/signup">Sign up</Link></Button>
-          </div>
-        </div>
-      </main>
-    );
+  if (!user) return <main className="p-10 text-center text-muted-foreground">Taking you to login...</main>;
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
