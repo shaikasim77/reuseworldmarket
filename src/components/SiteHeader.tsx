@@ -13,7 +13,7 @@ export function SiteHeader() {
     <header className="border-b border-border bg-background/90 backdrop-blur sticky top-0 z-20">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-2 gap-y-2 px-4 py-3">
         <Link to="/" className="flex items-center gap-2 whitespace-nowrap font-display text-xl font-bold text-primary">
-          <Leaf className="h-6 w-6" /> Reuse World
+          <Leaf className="h-6 w-6 text-gold-deep" /> Reuse World
         </Link>
         <nav className="flex flex-wrap items-center gap-1 text-sm sm:gap-2">
           <Button asChild variant={tab("/")} size="sm"><Link to="/">Home</Link></Button>
