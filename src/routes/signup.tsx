@@ -23,6 +23,7 @@ export const Route = createFileRoute("/signup")({
 
 function Signup() {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -31,7 +32,7 @@ function Signup() {
     e.preventDefault();
     if (password.length < 6) { toast.error("Password must be at least 6 characters"); return; }
     setBusy(true);
-    const { data, error } = await supabase.auth.signUp({ email: email.trim(), password, options: { emailRedirectTo: window.location.origin } });
+    const { data, error } = await supabase.auth.signUp({ email: email.trim(), password, options: { emailRedirectTo: window.location.origin, data: { full_name: name.trim() } } });
     setBusy(false);
     if (error) { toast.error(error.message); return; }
     if (data.session) {
@@ -52,6 +53,7 @@ function Signup() {
         ) : (
           <form onSubmit={submit} className="space-y-4">
             <h1 className="font-display text-3xl font-bold">Sign up</h1>
+            <div className="space-y-2"><Label htmlFor="name">Your name</Label><Input id="name" required maxLength={60} value={name} onChange={(e) => setName(e.target.value)} /></div>
             <div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" type="email" required maxLength={255} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
             <div className="space-y-2"><Label htmlFor="pw">Password</Label><Input id="pw" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} /></div>
             <Button type="submit" className="w-full" disabled={busy}>{busy ? "Creating..." : "Create account"}</Button>

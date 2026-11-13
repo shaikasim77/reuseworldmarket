@@ -20,9 +20,12 @@ export function SiteHeader() {
           <Button asChild variant={tab("/browse")} size="sm"><Link to="/browse">Browse</Link></Button>
           <Button asChild variant={tab("/post")} size="sm"><Link to="/post">Post</Link></Button>
           {user ? (
+            <>
+            <span className="max-w-[10rem] truncate px-2 font-medium text-foreground">Hi, {(user.user_metadata?.["full_name"] as string) || (user.user_metadata?.["name"] as string) || user.email?.split("@")[0]}</span>
             <Button variant="outline" size="sm" onClick={async () => { await supabase.auth.signOut(); navigate({ to: "/" }); }}>
-              Log out
+              Logout
             </Button>
+            </>
           ) : (
             <>
               <Button asChild variant="ghost" size="sm"><Link to="/login">Login</Link></Button>
