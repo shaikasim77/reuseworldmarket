@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BrowseRouteImport } from './routes/browse'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as MyPostsRouteImport } from './routes/my-posts'
+import { Route as MyRequestsRouteImport } from './routes/my-requests'
 import { Route as PostRouteImport } from './routes/post'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SignupRouteImport } from './routes/signup'
@@ -37,6 +39,16 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MyPostsRoute = MyPostsRouteImport.update({
+  id: '/my-posts',
+  path: '/my-posts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyRequestsRoute = MyRequestsRouteImport.update({
+  id: '/my-requests',
+  path: '/my-requests',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PostRoute = PostRouteImport.update({
   id: '/post',
   path: '/post',
@@ -58,6 +70,8 @@ export interface FileRoutesByFullPath {
   '/browse': typeof BrowseRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/my-posts': typeof MyPostsRoute
+  '/my-requests': typeof MyRequestsRoute
   '/post': typeof PostRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
@@ -67,6 +81,8 @@ export interface FileRoutesByTo {
   '/browse': typeof BrowseRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/my-posts': typeof MyPostsRoute
+  '/my-requests': typeof MyRequestsRoute
   '/post': typeof PostRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
@@ -77,6 +93,8 @@ export interface FileRoutesById {
   '/browse': typeof BrowseRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/my-posts': typeof MyPostsRoute
+  '/my-requests': typeof MyRequestsRoute
   '/post': typeof PostRoute
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
@@ -88,6 +106,8 @@ export interface FileRouteTypes {
     | '/browse'
     | '/forgot-password'
     | '/login'
+    | '/my-posts'
+    | '/my-requests'
     | '/post'
     | '/reset-password'
     | '/signup'
@@ -97,6 +117,8 @@ export interface FileRouteTypes {
     | '/browse'
     | '/forgot-password'
     | '/login'
+    | '/my-posts'
+    | '/my-requests'
     | '/post'
     | '/reset-password'
     | '/signup'
@@ -106,6 +128,8 @@ export interface FileRouteTypes {
     | '/browse'
     | '/forgot-password'
     | '/login'
+    | '/my-posts'
+    | '/my-requests'
     | '/post'
     | '/reset-password'
     | '/signup'
@@ -116,6 +140,8 @@ export interface RootRouteChildren {
   BrowseRoute: typeof BrowseRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
+  MyPostsRoute: typeof MyPostsRoute
+  MyRequestsRoute: typeof MyRequestsRoute
   PostRoute: typeof PostRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SignupRoute: typeof SignupRoute
@@ -151,6 +177,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/my-posts': {
+      id: '/my-posts'
+      path: '/my-posts'
+      fullPath: '/my-posts'
+      preLoaderRoute: typeof MyPostsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-requests': {
+      id: '/my-requests'
+      path: '/my-requests'
+      fullPath: '/my-requests'
+      preLoaderRoute: typeof MyRequestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/post': {
       id: '/post'
       path: '/post'
@@ -180,6 +220,8 @@ const rootRouteChildren: RootRouteChildren = {
   BrowseRoute: BrowseRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
+  MyPostsRoute: MyPostsRoute,
+  MyRequestsRoute: MyRequestsRoute,
   PostRoute: PostRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SignupRoute: SignupRoute,
