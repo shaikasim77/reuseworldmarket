@@ -10,6 +10,6 @@
 - [x] Let item owners see the requests people sent them on My Requests.
 
 # Design refresh
-- [ ] Replace the text logo and browser icon with the uploaded image.
-- [ ] Add a green home gradient, modern fonts, softer cards and smooth button effects.
-- [ ] Check the updated design on desktop and mobile.
+- [x] Replace the text logo and browser icon with the uploaded image.
+- [x] Add a green home gradient, modern fonts, softer cards and smooth button effects.
+- [x] Check the updated design on desktop and mobile.
