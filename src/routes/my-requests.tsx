@@ -99,15 +99,22 @@ function MyRequests() {
             <div className="flex flex-col gap-1 text-sm sm:items-end">
               <span className="flex items-center gap-2 font-medium">
                 <User className="h-4 w-4 text-primary" />
-                {req.requester_name}
+                {req.requester_name || "Name not provided"}
               </span>
-              <a
-                href={`tel:${req.requester_phone}`}
-                className="flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
-              >
-                <Phone className="h-4 w-4" />
-                {req.requester_phone}
-              </a>
+              {req.requester_phone ? (
+                <a
+                  href={`tel:${req.requester_phone}`}
+                  className="flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline"
+                >
+                  <Phone className="h-4 w-4" />
+                  {req.requester_phone}
+                </a>
+              ) : (
+                <span className="flex items-center gap-2 text-muted-foreground">
+                  <Phone className="h-4 w-4" />
+                  No phone number
+                </span>
+              )}
             </div>
           </article>
         ))}
