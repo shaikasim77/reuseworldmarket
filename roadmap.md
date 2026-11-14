@@ -7,4 +7,9 @@
 - [x] Show every posted item as a card with photo, name, category tag, condition, location and a green Request Item button.
 - [x] Add a search bar and category filter chips (All, Furniture, Clothes, Electronics, Books, Toys).
 - [x] Save requests so the button really asks the owner, and show Requested / Your item states.
-- [ ] Let item owners see the requests people sent them (needs a page of their own).
+- [x] Let item owners see the requests people sent them on My Requests.
+
+# Design refresh
+- [x] Replace the text logo and browser icon with the uploaded image.
+- [x] Add a green home gradient, modern fonts, softer cards and smooth button effects.
+- [x] Check the updated design on desktop and mobile.
