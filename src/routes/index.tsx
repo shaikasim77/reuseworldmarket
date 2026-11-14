@@ -31,23 +31,25 @@ const stats = [
 
 function Index() {
   return (
-    <main className="bg-hero min-h-[calc(100vh-57px)]">
-      <section className="mx-auto max-w-4xl px-4 pt-20 pb-16 text-center">
+    <main className="min-h-[calc(100vh-97px)] bg-background">
+      <section className="bg-hero px-4 py-12 text-center sm:py-16">
+        <div className="mx-auto max-w-4xl">
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-soft ring-4 ring-gold/40">
           <Recycle className="h-8 w-8" />
         </div>
-        <h1 className="font-display text-4xl font-extrabold leading-tight text-foreground sm:text-6xl">
+        <h1 className="font-display text-4xl font-bold leading-tight text-hero-foreground sm:text-6xl">
           Reuse World – <span className="text-primary">Waste kadhu, Avakasam!</span>
         </h1>
-        <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
+        <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-hero-muted">
           Don't throw it away — give it to someone who needs it.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Button asChild size="lg" className="shadow-soft"><Link to="/post">Post an Item</Link></Button>
-          <Button asChild size="lg" variant="outline"><Link to="/browse">Browse Items</Link></Button>
+          <Button asChild size="lg" className="h-12 shadow-soft"><Link to="/post">Post an Item</Link></Button>
+          <Button asChild size="lg" variant="outline" className="h-12"><Link to="/browse">Browse Items</Link></Button>
+        </div>
         </div>
       </section>
-      <section className="mx-auto grid max-w-4xl grid-cols-1 gap-4 px-4 pb-12 sm:grid-cols-3">
+      <section className="mx-auto grid max-w-4xl grid-cols-1 gap-5 px-4 pt-10 pb-10 sm:grid-cols-3">
         {stats.map(({ icon: Icon, value, label }) => (
           <div key={label} className="rounded-2xl bg-primary p-6 text-center text-primary-foreground shadow-soft ring-1 ring-gold/45">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gold text-gold-foreground">
@@ -60,7 +62,7 @@ function Index() {
       </section>
       <section className="mx-auto grid max-w-4xl grid-cols-2 gap-4 px-4 pb-20 sm:grid-cols-4">
         {cats.map(({ icon: Icon, label }) => (
-          <div key={label} className="rounded-xl border border-border border-b-4 border-b-gold bg-card p-5 text-center">
+          <div key={label} className="rounded-2xl border border-border border-b-4 border-b-gold bg-card p-5 text-center shadow-soft">
             <Icon className="mx-auto h-7 w-7 text-primary" />
             <p className="mt-2 font-semibold">{label}</p>
           </div>
