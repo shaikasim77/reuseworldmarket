@@ -60,7 +60,7 @@ function Index() {
       </section>
       <section className="mx-auto grid max-w-4xl grid-cols-2 gap-4 px-4 pb-20 sm:grid-cols-4">
         {cats.map(({ icon: Icon, label }) => (
-          <div key={label} className="rounded-xl border border-border border-b-2 border-b-gold/70 bg-card p-5 text-center">
+          <div key={label} className="rounded-xl border border-border border-b-4 border-b-gold bg-card p-5 text-center">
             <Icon className="mx-auto h-7 w-7 text-primary" />
             <p className="mt-2 font-semibold">{label}</p>
           </div>
