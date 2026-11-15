@@ -15,6 +15,7 @@
 - [x] Check the updated design on desktop and mobile.
 
 # Rebuy visual rebrand
-- [ ] Apply Rebuy branding, navy/gold tokens, requested fonts and a shared footer.
-- [ ] Replace Home with the featured-item design and restyle Browse without changing its flows.
-- [ ] Verify all pages, filters and signed-in views on phone and laptop.
+- [x] Apply Rebuy branding, navy/gold tokens, requested fonts and a shared footer.
+- [x] Replace Home with the featured-item design and restyle Browse without changing its flows.
+- [x] Verify public pages, item photos, filters and guest redirects on phone and laptop.
+- [ ] Verify signed-in posting and private pages (waiting for the user to sign in; no account matches the requesting user's email).
