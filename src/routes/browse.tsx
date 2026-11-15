@@ -201,12 +201,12 @@ function Browse() {
               key={item.id}
               className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-soft"
             >
-              <div className="relative aspect-[4/3] bg-muted">
+              <div className="relative aspect-[4/3] shrink-0 overflow-hidden bg-muted">
                 {item.image ? (
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="h-full w-full object-cover"
+                    className="absolute inset-0 h-full w-full object-cover"
                     loading="lazy"
                   />
                 ) : (
