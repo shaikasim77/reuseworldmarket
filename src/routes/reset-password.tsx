@@ -9,10 +9,10 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: "Reset password – Reuse World" },
-      { name: "description", content: "Choose a new password for your Reuse World account." },
-      { property: "og:title", content: "Reset password – Reuse World" },
-      { property: "og:description", content: "Choose a new password for your Reuse World account." },
+      { title: "Reset password – Rebuy" },
+      { name: "description", content: "Choose a new password for your Rebuy account." },
+      { property: "og:title", content: "Reset password – Rebuy" },
+      { property: "og:description", content: "Choose a new password for your Rebuy account." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -73,7 +73,7 @@ function ResetPassword() {
 
   if (!recovering) {
     return (
-      <main className="bg-hero flex min-h-[calc(100vh-57px)] items-center justify-center px-4 py-12">
+      <main className="bg-background flex min-h-[65vh] items-center justify-center px-4 py-12">
         <div className="w-full max-w-sm space-y-4 rounded-2xl border border-border bg-card p-8 text-center shadow-soft">
           <h1 className="font-display text-3xl font-bold">Reset link needed</h1>
           <p className="text-muted-foreground">
@@ -89,7 +89,7 @@ function ResetPassword() {
   }
 
   return (
-    <main className="bg-hero flex min-h-[calc(100vh-57px)] items-center justify-center px-4 py-12">
+    <main className="bg-background flex min-h-[65vh] items-center justify-center px-4 py-12">
       <form onSubmit={submit} className="w-full max-w-sm space-y-4 rounded-2xl border border-border bg-card p-8 shadow-soft">
         <h1 className="font-display text-3xl font-bold">New password</h1>
         <p className="text-sm text-muted-foreground">Choose a new password for your account.</p>

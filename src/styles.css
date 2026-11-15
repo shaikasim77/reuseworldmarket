@@ -22,7 +22,7 @@
  * classes (e.g. --color-primary -> bg-primary, text-primary).
  *
  * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
+ * Brand colors are defined here as semantic tokens.
  *
  * To add a new semantic color:
  * 1. Add the variable to :root (light value) and .dark (dark value)
@@ -33,8 +33,8 @@
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
   --color-background: var(--background);
@@ -75,52 +75,50 @@
   --color-gold-deep: var(--gold-deep);
   --color-hero-foreground: var(--hero-foreground);
   --color-hero-muted: var(--hero-muted);
-  --font-display: "Outfit", system-ui, sans-serif;
-  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
 }
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.995 0.004 260);
-  --foreground: oklch(0.24 0.05 265);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.24 0.05 265);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.24 0.05 265);
-  --primary: oklch(0.48 0.19 264);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.95 0.03 262);
-  --secondary-foreground: oklch(0.3 0.07 265);
-  --muted: oklch(0.96 0.012 260);
-  --muted-foreground: oklch(0.52 0.03 262);
-  --accent: oklch(0.95 0.05 92);
-  --accent-foreground: oklch(0.36 0.09 85);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.9 0.02 262);
-  --input: oklch(0.87 0.025 262);
-  --ring: oklch(0.48 0.19 264);
-  --chart-1: oklch(0.48 0.19 264);
-  --chart-2: oklch(0.78 0.14 86);
-  --chart-3: oklch(0.62 0.12 250);
-  --chart-4: oklch(0.66 0.14 75);
-  --chart-5: oklch(0.72 0.1 230);
-  --sidebar: oklch(0.98 0.01 262);
-  --sidebar-foreground: oklch(0.24 0.05 265);
-  --sidebar-primary: oklch(0.48 0.19 264);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.95 0.05 92);
-  --sidebar-accent-foreground: oklch(0.36 0.09 85);
-  --sidebar-border: oklch(0.9 0.02 262);
-  --sidebar-ring: oklch(0.48 0.19 264);
-  --gold: oklch(0.78 0.14 86);
-  --gold-foreground: oklch(0.26 0.06 85);
-  --gold-deep: oklch(0.55 0.13 85);
-  --hero-start: oklch(0.94 0.06 150);
-  --hero-end: oklch(0.87 0.105 160);
-  --hero-foreground: oklch(0.25 0.045 160);
-  --hero-muted: oklch(0.4 0.045 160);
-  --hero-gradient: linear-gradient(120deg, var(--hero-start), var(--hero-end));
+  --background: #FBFAF7;
+  --foreground: #0B1F5C;
+  --card: #FFFFFF;
+  --card-foreground: #0B1F5C;
+  --popover: #FFFFFF;
+  --popover-foreground: #0B1F5C;
+  --primary: #0B1F5C;
+  --primary-foreground: #FBF6EA;
+  --secondary: #F1EBDB;
+  --secondary-foreground: #0B1F5C;
+  --muted: #F1EEE7;
+  --muted-foreground: #626578;
+  --accent: #F6EED5;
+  --accent-foreground: #0B1F5C;
+  --destructive: oklch(0.52 0.2 27);
+  --destructive-foreground: #FFFFFF;
+  --border: #E5E1D6;
+  --input: #D5D1C5;
+  --ring: #C9A227;
+  --chart-1: var(--primary);
+  --chart-2: var(--gold);
+  --chart-3: var(--muted-foreground);
+  --chart-4: var(--secondary);
+  --chart-5: var(--accent);
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+  --gold: #C9A227;
+  --gold-foreground: #0B1F5C;
+  --gold-deep: #80630D;
+  --hero-foreground: #FBF6EA;
+  --hero-muted: #DDD9CD;
+  --hero-gradient: var(--background);
   --shadow-soft: 0 4px 8px -4px color-mix(in oklab, var(--foreground) 10%, transparent), 0 12px 28px -12px color-mix(in oklab, var(--foreground) 18%, transparent);
   --shadow-lift: 0 8px 16px -6px color-mix(in oklab, var(--primary) 18%, transparent), 0 18px 36px -12px color-mix(in oklab, var(--foreground) 22%, transparent);
 }
@@ -144,4 +142,11 @@
   display: inline-flex; width: 100%; align-items: center; justify-content: center; gap: 10px;
   padding: 10px 12px; border-radius: var(--radius); border: 1px solid #747775;
   background: #ffffff; color: #1f1f1f; font-size: 14px; font-weight: 500;
+}
+
+@layer base {
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-slot="button"], a, button { transition: none !important; translate: none !important; }
 }

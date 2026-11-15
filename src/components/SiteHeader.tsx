@@ -10,10 +10,11 @@ export function SiteHeader() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const tab = (path: string) => (pathname === path ? "secondary" : "ghost") as "secondary" | "ghost";
   return (
-    <header className="border-b border-border bg-background/90 backdrop-blur sticky top-0 z-20">
+    <header className="border-b border-gold/35 bg-background/90 backdrop-blur sticky top-0 z-20">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-2 gap-y-2 px-4 py-3">
-        <Link to="/" aria-label="Reuse World home" className="shrink-0 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-          <img src={logoAsset.url} alt="Reuse World logo" width={72} height={72} className="h-[72px] w-[72px] rounded-full object-contain" />
+        <Link to="/" aria-label="Rebuy home" className="flex shrink-0 items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          <img src={logoAsset.url} alt="Rebuy logo" width={56} height={56} className="h-14 w-14 rounded-full object-contain" />
+          <span className="font-display text-3xl font-semibold">Rebuy</span>
         </Link>
         <nav className="flex flex-wrap items-center gap-1 text-sm sm:gap-2">
           <Button asChild variant={tab("/")} size="sm"><Link to="/">Home</Link></Button>

@@ -1,11 +1,11 @@
+import { fetchItems } from "@/lib/available-items";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
-import { Check, ImageOff, MapPin, Search, X } from "lucide-react";
+import { ArrowRight, Recycle, Check, ImageOff, MapPin, Search, X } from "lucide-react";
 import { toast } from "sonner";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -31,13 +31,13 @@ export const Route = createFileRoute("/browse")({
   validateSearch: zodValidator(browseSearchSchema),
   head: () => ({
     meta: [
-      { title: "Browse Items – Reuse World" },
+      { title: "Browse Items – Rebuy" },
       {
         name: "description",
         content:
-          "Search and filter furniture, clothes, electronics, books and toys shared on Reuse World, then request the ones you want.",
+          "Search and filter furniture, clothes, electronics, books and toys shared on Rebuy, then request the ones you want.",
       },
-      { property: "og:title", content: "Browse Items – Reuse World" },
+      { property: "og:title", content: "Browse Items – Rebuy" },
       { property: "og:description", content: "Find free reusable items near you." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -46,25 +46,6 @@ export const Route = createFileRoute("/browse")({
   component: Browse,
 });
 
-async function fetchItems() {
-  const { data, error } = await supabase
-    .from("items")
-    .select("*")
-    .eq("is_available", true)
-    .order("created_at", { ascending: false });
-  if (error) throw error;
-  const paths = data.map((i) => i.photo_url).filter((p): p is string => !!p);
-  const urls: Record<string, string> = {};
-  if (paths.length) {
-    const { data: signed } = await supabase.storage
-      .from("item-photos")
-      .createSignedUrls(paths, 3600);
-    signed?.forEach((s) => {
-      if (s.path && s.signedUrl) urls[s.path] = s.signedUrl;
-    });
-  }
-  return data.map((i) => ({ ...i, image: i.photo_url ? urls[i.photo_url] : undefined }));
-}
 
 async function fetchMyRequests() {
   const { data, error } = await supabase.from("item_requests").select("item_id");
@@ -158,14 +139,15 @@ function Browse() {
           className="h-8 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
         />
         {q && (
-          <button
+          <Button
+            variant="ghost" size="icon"
             type="button"
             onClick={() => setQuery("")}
             aria-label="Clear search"
             className="rounded-md p-1 text-muted-foreground hover:bg-accent hover:text-foreground"
           >
             <X className="h-4 w-4" />
-          </button>
+          </Button>
         )}
       </div>
 
@@ -194,7 +176,7 @@ function Browse() {
 
       {!isLoading && !error && data && visible.length === 0 && (
         <div className="rounded-2xl border border-border bg-card p-10 text-center shadow-soft">
-          <p className="font-display text-xl font-bold">No items match your search</p>
+          <p className="font-display text-xl font-bold">{data.length === 0 ? "No items yet - be the first to post!" : "No items match your search"}</p>
           <p className="mt-1 text-sm text-muted-foreground">
             Try another word or pick a different category.
           </p>
@@ -219,7 +201,7 @@ function Browse() {
               key={item.id}
               className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-soft"
             >
-              <div className="aspect-[4/3] bg-muted">
+              <div className="relative aspect-[4/3] bg-muted">
                 {item.image ? (
                   <img
                     src={item.image}
@@ -233,11 +215,13 @@ function Browse() {
                     <span className="text-xs">No photo</span>
                   </div>
                 )}
+                <span className="absolute left-4 top-4 rounded-md bg-gold px-2.5 py-1 text-xs font-semibold text-gold-foreground">FREE</span>
+                <span className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full border border-gold bg-primary text-gold"><Recycle className="h-5 w-5" /></span>
               </div>
               <div className="flex flex-1 flex-col gap-3 p-5">
                 <div className="flex items-start justify-between gap-2">
                   <h2 className="font-display text-xl font-bold leading-tight">{item.name}</h2>
-                  <Badge className="shrink-0 capitalize">{item.category}</Badge>
+
                 </div>
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
                   <span className="rounded-md bg-secondary px-2 py-0.5 text-xs font-semibold text-secondary-foreground">
@@ -245,13 +229,13 @@ function Browse() {
                   </span>
                   <span className="flex items-center gap-1 text-primary">
                     <MapPin className="h-4 w-4" />
-                    {item.location}
+                    {item.location} · <span className="capitalize">{item.category}</span>
                   </span>
                 </div>
                 {item.description && (
                   <p className="line-clamp-2 text-sm text-muted-foreground">{item.description}</p>
                 )}
-                <div className="mt-auto pt-1">
+                <div className="mt-auto border-t border-gold/45 pt-3">
                   {action === "mine" ? (
                     <Button variant="outline" className="w-full" disabled>
                       Your item
@@ -262,11 +246,12 @@ function Browse() {
                     </Button>
                   ) : (
                     <Button
+                      variant="request"
                       className="w-full"
                       disabled={busyId === item.id}
                       onClick={() => requestItem(item.id)}
                     >
-                      {busyId === item.id ? "Sending..." : "Request Item"}
+                      {busyId === item.id ? "Sending..." : "Request"} <ArrowRight className="ml-auto" />
                     </Button>
                   )}
                 </div>
