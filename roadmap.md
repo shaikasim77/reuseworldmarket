@@ -13,3 +13,8 @@
 - [x] Replace the text logo and browser icon with the uploaded image.
 - [x] Add a green home gradient, modern fonts, softer cards and smooth button effects.
 - [x] Check the updated design on desktop and mobile.
+
+# Rebuy visual rebrand
+- [ ] Apply Rebuy branding, navy/gold tokens, requested fonts and a shared footer.
+- [ ] Replace Home with the featured-item design and restyle Browse without changing its flows.
+- [ ] Verify all pages, filters and signed-in views on phone and laptop.
