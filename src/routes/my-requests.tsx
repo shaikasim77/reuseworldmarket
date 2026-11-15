@@ -9,10 +9,10 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/my-requests")({
   head: () => ({
     meta: [
-      { title: "My Requests – Reuse World" },
-      { name: "description", content: "See who requested your items on Reuse World." },
-      { property: "og:title", content: "My Requests – Reuse World" },
-      { property: "og:description", content: "See who requested your items on Reuse World." },
+      { title: "My Requests – Rebuy" },
+      { name: "description", content: "See who requested your items on Rebuy." },
+      { property: "og:title", content: "My Requests – Rebuy" },
+      { property: "og:description", content: "See who requested your items on Rebuy." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

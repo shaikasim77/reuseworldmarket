@@ -10,10 +10,10 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Login – Reuse World" },
-      { name: "description", content: "Log in to Reuse World to post and share items." },
-      { property: "og:title", content: "Login – Reuse World" },
-      { property: "og:description", content: "Log in to Reuse World." },
+      { title: "Login – Rebuy" },
+      { name: "description", content: "Log in to Rebuy to post and share items." },
+      { property: "og:title", content: "Login – Rebuy" },
+      { property: "og:description", content: "Log in to Rebuy." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -48,7 +48,7 @@ function Login() {
     navigate({ to: redirect ?? "/browse" });
   };
   return (
-    <main className="bg-hero flex min-h-[calc(100vh-57px)] items-center justify-center px-4 py-12">
+    <main className="bg-background flex min-h-[65vh] items-center justify-center px-4 py-12">
       <form onSubmit={submit} className="w-full max-w-sm space-y-4 rounded-2xl border border-border bg-card p-8 shadow-soft">
         <h1 className="font-display text-3xl font-bold">Login</h1>
         {redirect === "/post" && <p className="text-sm text-muted-foreground">Please log in to post an item.</p>}

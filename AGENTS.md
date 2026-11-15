@@ -31,3 +31,4 @@ use the editor.
 
 - Keep item form options and browser validation in `src/lib/item-form.ts`, with matching database constraints, so posts remain valid on either input path.
 - Keep shared font, hero and elevation styling in global semantic tokens and button interactions in the shared Button component so pages remain visually consistent.
+- Reuse the available-items query and signed-photo mapping from `src/lib/available-items.ts` for Home and Browse; render the shared footer in the root layout to keep all routes consistent.

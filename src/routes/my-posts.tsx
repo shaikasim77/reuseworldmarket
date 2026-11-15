@@ -10,10 +10,10 @@ import { itemConditions } from "@/lib/item-form";
 export const Route = createFileRoute("/my-posts")({
   head: () => ({
     meta: [
-      { title: "My Posts – Reuse World" },
-      { name: "description", content: "See and manage the items you posted on Reuse World." },
-      { property: "og:title", content: "My Posts – Reuse World" },
-      { property: "og:description", content: "See and manage the items you posted on Reuse World." },
+      { title: "My Posts – Rebuy" },
+      { name: "description", content: "See and manage the items you posted on Rebuy." },
+      { property: "og:title", content: "My Posts – Rebuy" },
+      { property: "og:description", content: "See and manage the items you posted on Rebuy." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -74,7 +74,7 @@ function MyPosts() {
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="font-display text-4xl font-bold">My Posts</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Everything you've shared on Reuse World.</p>
+          <p className="mt-1 text-sm text-muted-foreground">Everything you've shared on Rebuy.</p>
         </div>
         <Button asChild>
           <Link to="/post">

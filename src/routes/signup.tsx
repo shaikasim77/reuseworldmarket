@@ -10,10 +10,10 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/signup")({
   head: () => ({
     meta: [
-      { title: "Sign up – Reuse World" },
-      { name: "description", content: "Create a free Reuse World account." },
-      { property: "og:title", content: "Sign up – Reuse World" },
-      { property: "og:description", content: "Create a free Reuse World account." },
+      { title: "Sign up – Rebuy" },
+      { name: "description", content: "Create a free Rebuy account." },
+      { property: "og:title", content: "Sign up – Rebuy" },
+      { property: "og:description", content: "Create a free Rebuy account." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -43,7 +43,7 @@ function Signup() {
     setSent(true);
   };
   return (
-    <main className="bg-hero flex min-h-[calc(100vh-57px)] items-center justify-center px-4 py-12">
+    <main className="bg-background flex min-h-[65vh] items-center justify-center px-4 py-12">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-8 shadow-soft">
         {sent ? (
           <div className="space-y-3 text-center">
