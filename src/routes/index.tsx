@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, Recycle, PackageCheck, Users, MapPin, Sofa, Shirt, Laptop, BookOpen, ImageOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { fetchItems } from "@/lib/available-items";
 
 const itemsOptions = { queryKey: ["items"], queryFn: fetchItems };
 export const Route = createFileRoute("/")({
-  loader: ({ context }) => context.queryClient.ensureQueryData(itemsOptions),
   head: () => ({ meta: [
     { title: "Rebuy — One person's spare, another's need." },
     { name: "description", content: "Post what you no longer need. Find free furniture, clothes, electronics and books nearby on Rebuy." },
@@ -25,7 +24,7 @@ const cats = [
 ];
 
 function Index() {
-  const { data: items } = useSuspenseQuery(itemsOptions);
+  const { data: items = [], isLoading, error } = useQuery(itemsOptions);
   const item = items[0];
   const givers = new Set(items.map((i) => i.user_id)).size;
   const cities = new Set(items.map((i) => i.location.trim().toLowerCase())).size;
@@ -46,7 +45,7 @@ function Index() {
         </div>
         <div className="min-w-0 lg:border-l lg:border-gold/35 lg:pl-10">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-primary-foreground/10">
-            {item?.image ? <img src={item.image} alt={item.name} className="h-full w-full object-cover" /> : <div className="flex h-full items-center justify-center px-6 text-center text-hero-muted">{item ? <ImageOff className="h-12 w-12" /> : <p className="font-display text-xl">No items yet - be the first to post!</p>}</div>}
+            {item?.image ? <img src={item.image} alt={item.name} className="h-full w-full object-cover" /> : <div className="flex h-full items-center justify-center px-6 text-center text-hero-muted">{item ? <ImageOff className="h-12 w-12" /> : <p className="font-display text-xl">{isLoading ? "Loading featured item..." : error ? "Featured item unavailable" : "No items yet - be the first to post!"}</p>}</div>}
             <span className="absolute left-4 top-4 rounded-md bg-gold px-3 py-1.5 text-xs font-semibold text-gold-foreground">FEATURED</span>
             <span className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center rounded-full border border-gold bg-primary text-gold"><Recycle className="h-6 w-6" /></span>
           </div>
