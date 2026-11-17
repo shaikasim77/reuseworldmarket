@@ -96,11 +96,13 @@ export type Database = {
           id: string
           is_available: boolean
           latitude: number | null
+          listing_type: Database["public"]["Enums"]["listing_type"]
           location: string
           longitude: number | null
           name: string
           photo_url: string | null
           user_id: string
+          wants: string | null
         }
         Insert: {
           category: Database["public"]["Enums"]["item_category"]
@@ -110,11 +112,13 @@ export type Database = {
           id?: string
           is_available?: boolean
           latitude?: number | null
+          listing_type?: Database["public"]["Enums"]["listing_type"]
           location: string
           longitude?: number | null
           name: string
           photo_url?: string | null
           user_id: string
+          wants?: string | null
         }
         Update: {
           category?: Database["public"]["Enums"]["item_category"]
@@ -124,11 +128,13 @@ export type Database = {
           id?: string
           is_available?: boolean
           latitude?: number | null
+          listing_type?: Database["public"]["Enums"]["listing_type"]
           location?: string
           longitude?: number | null
           name?: string
           photo_url?: string | null
           user_id?: string
+          wants?: string | null
         }
         Relationships: []
       }
@@ -164,12 +170,79 @@ export type Database = {
           },
         ]
       }
+      points_ledger: {
+        Row: {
+          created_at: string
+          id: string
+          points: number
+          reason: string
+          request_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          points: number
+          reason: string
+          request_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          points?: number
+          reason?: string
+          request_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "points_ledger_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "points_ledger_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string
+          id: string
+          points: number
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string
+          id: string
+          points?: number
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string
+          id?: string
+          points?: number
+        }
+        Relationships: []
+      }
       requests: {
         Row: {
           created_at: string
           id: string
           item_id: string
           message: string
+          offer_item_id: string | null
           owner_id: string
           requester_id: string
           requester_name: string
@@ -182,6 +255,7 @@ export type Database = {
           id?: string
           item_id: string
           message?: string
+          offer_item_id?: string | null
           owner_id: string
           requester_id: string
           requester_name?: string
@@ -194,6 +268,7 @@ export type Database = {
           id?: string
           item_id?: string
           message?: string
+          offer_item_id?: string | null
           owner_id?: string
           requester_id?: string
           requester_name?: string
@@ -209,6 +284,13 @@ export type Database = {
             referencedRelation: "items"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "requests_offer_item_id_fkey"
+            columns: ["offer_item_id"]
+            isOneToOne: false
+            referencedRelation: "items"
+            referencedColumns: ["id"]
+          },
         ]
       }
     }
@@ -216,7 +298,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      rebuy_community_totals: { Args: never; Returns: Json }
+      rebuy_given_count: { Args: { member_id: string }; Returns: number }
     }
     Enums: {
       item_category:
@@ -226,6 +309,7 @@ export type Database = {
         | "books"
         | "toys"
         | "other"
+      listing_type: "give" | "exchange"
       request_status: "pending" | "accepted" | "declined" | "completed"
     }
     CompositeTypes: {
@@ -362,6 +446,7 @@ export const Constants = {
         "toys",
         "other",
       ],
+      listing_type: ["give", "exchange"],
       request_status: ["pending", "accepted", "declined", "completed"],
     },
   },

@@ -36,6 +36,13 @@
       "when": 1794894654078,
       "tag": "0004_rebuy_photos_requests_chat",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1794894688088,
+      "tag": "0005_rebuy_points_exchange",
+      "breakpoints": true
     }
   ]
 }
