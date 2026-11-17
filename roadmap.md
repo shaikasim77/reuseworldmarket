@@ -19,3 +19,10 @@
 - [x] Replace Home with the featured-item design and restyle Browse without changing its flows.
 - [x] Verify public pages, item photos, filters and guest redirects on phone and laptop.
 - [ ] Verify signed-in posting and private pages (waiting for the user to sign in; no account matches the requesting user's email).
+
+# Uploaded build pack
+- [ ] Apply compatible photo, request and chat schema while preserving existing data.
+- [ ] Apply secure profiles, points and exchange schema.
+- [ ] Upgrade posting and browsing; add item details and request management/chat.
+- [ ] Add profiles, levels, points history, real community totals and top givers.
+- [ ] Test rules and verify desktop/mobile and signed-in flows.

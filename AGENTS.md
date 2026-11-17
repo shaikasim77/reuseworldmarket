@@ -32,3 +32,6 @@ use the editor.
 - Keep item form options and browser validation in `src/lib/item-form.ts`, with matching database constraints, so posts remain valid on either input path.
 - Keep shared font, hero and elevation styling in global semantic tokens and button interactions in the shared Button component so pages remain visually consistent.
 - Reuse the available-items query and signed-photo mapping from `src/lib/available-items.ts` for Home and Browse; render the shared footer in the root layout to keep all routes consistent.
+- Use public.requests for all request flows and retain legacy item_requests as deprecated history; this preserves migrated contacts without duplicate request paths.
+- Validate ownership, request transitions, exchange offers and one-time points in database triggers; clients must never award or edit points.
+- Keep geography and level calculations in src/lib/rebuy.ts, and shared photo/request queries in dedicated library modules, so every view uses the same rules.
