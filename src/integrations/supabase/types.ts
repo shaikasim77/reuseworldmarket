@@ -14,6 +14,38 @@ export type Database = {
   }
   public: {
     Tables: {
+      item_photos: {
+        Row: {
+          created_at: string
+          id: string
+          item_id: string
+          sort_order: number
+          storage_path: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_id: string
+          sort_order: number
+          storage_path: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_id?: string
+          sort_order?: number
+          storage_path?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "item_photos_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       item_requests: {
         Row: {
           created_at: string
@@ -63,7 +95,9 @@ export type Database = {
           description: string
           id: string
           is_available: boolean
+          latitude: number | null
           location: string
+          longitude: number | null
           name: string
           photo_url: string | null
           user_id: string
@@ -75,7 +109,9 @@ export type Database = {
           description?: string
           id?: string
           is_available?: boolean
+          latitude?: number | null
           location: string
+          longitude?: number | null
           name: string
           photo_url?: string | null
           user_id: string
@@ -87,12 +123,93 @@ export type Database = {
           description?: string
           id?: string
           is_available?: boolean
+          latitude?: number | null
           location?: string
+          longitude?: number | null
           name?: string
           photo_url?: string | null
           user_id?: string
         }
         Relationships: []
+      }
+      messages: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          request_id: string
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          request_id: string
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          request_id?: string
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      requests: {
+        Row: {
+          created_at: string
+          id: string
+          item_id: string
+          message: string
+          owner_id: string
+          requester_id: string
+          requester_name: string
+          requester_phone: string
+          status: Database["public"]["Enums"]["request_status"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_id: string
+          message?: string
+          owner_id: string
+          requester_id: string
+          requester_name?: string
+          requester_phone?: string
+          status?: Database["public"]["Enums"]["request_status"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_id?: string
+          message?: string
+          owner_id?: string
+          requester_id?: string
+          requester_name?: string
+          requester_phone?: string
+          status?: Database["public"]["Enums"]["request_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "requests_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "items"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
@@ -109,6 +226,7 @@ export type Database = {
         | "books"
         | "toys"
         | "other"
+      request_status: "pending" | "accepted" | "declined" | "completed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -244,6 +362,7 @@ export const Constants = {
         "toys",
         "other",
       ],
+      request_status: ["pending", "accepted", "declined", "completed"],
     },
   },
 } as const

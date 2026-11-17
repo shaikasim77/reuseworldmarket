@@ -29,6 +29,13 @@
       "when": 1794567139710,
       "tag": "0003_item_availability_and_request_contact",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794894654078,
+      "tag": "0004_rebuy_photos_requests_chat",
+      "breakpoints": true
     }
   ]
 }
