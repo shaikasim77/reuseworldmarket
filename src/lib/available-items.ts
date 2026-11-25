@@ -22,6 +22,10 @@ export async function signItems<T extends { photo_url: string | null; item_photo
       if (s.path && s.signedUrl) urls[s.path] = s.signedUrl;
     });
   }
-  return data.map((i) => ({ ...i, image: urls[photoPaths(i)[0]], images: photoPaths(i).map(p=>urls[p]).filter(Boolean) }));
+  return data.map((i) => {
+    const itemPaths = photoPaths(i);
+    const first = itemPaths[0];
+    return { ...i, image: first ? urls[first] : undefined, images: itemPaths.map((p) => urls[p]).filter(Boolean) };
+  });
 }
 
