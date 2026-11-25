@@ -1,18 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ImageOff, MapPin, Plus, Trash2 } from "lucide-react";
-import { toast } from "sonner";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { useQuery } from "@tanstack/react-query";
+import { ImageOff, MapPin, Plus } from "lucide-react";
+import { DeletePostButton } from "@/components/DeletePostButton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
@@ -57,24 +46,10 @@ function conditionLabel(condition: string) {
 
 function MyPosts() {
   const { user, loading } = useAuth();
-  const queryClient = useQueryClient();
   const { data, isLoading, error } = useQuery({
     queryKey: ["my-items", user?.id],
     queryFn: () => fetchMyItems(user!.id),
     enabled: !!user,
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: async (itemId: string) => {
-      const { error: delError } = await supabase.from("items").delete().eq("id", itemId);
-      if (delError) throw delError;
-    },
-    onSuccess: () => {
-      toast.success("Post deleted");
-      queryClient.invalidateQueries({ queryKey: ["my-items"] });
-      queryClient.invalidateQueries({ queryKey: ["available-items"] });
-    },
-    onError: () => toast.error("Couldn't delete the post. Please try again."),
   });
 
   if (loading) {
@@ -161,36 +136,7 @@ function MyPosts() {
                 ) : (
                   <span className="text-sm font-medium text-muted-foreground">No longer available</span>
                 )}
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-destructive hover:text-destructive"
-                      aria-label={`Delete ${item.name}`}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                      Delete
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Delete this post?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        "{item.name}" will be permanently removed from Rebuy. This can't be undone.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction
-                        onClick={() => deleteMutation.mutate(item.id)}
-                        disabled={deleteMutation.isPending}
-                      >
-                        Delete
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
+                <DeletePostButton itemId={item.id} itemName={item.name} userId={user.id} />
               </div>
             </div>
           </article>

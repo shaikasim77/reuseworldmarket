@@ -6,6 +6,7 @@ import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { ArrowRight, Recycle, Check, ImageOff, MapPin, Search, X } from "lucide-react";
 import { toast } from "sonner";
+import { DeletePostButton } from "@/components/DeletePostButton";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -237,9 +238,18 @@ function Browse() {
                 )}
                 <div className="mt-auto border-t border-gold/45 pt-3">
                   {action === "mine" ? (
-                    <Button variant="outline" className="w-full" disabled>
-                      Your item
-                    </Button>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-sm font-medium text-muted-foreground">Your item</span>
+                      {user && (
+                        <DeletePostButton
+                          itemId={item.id}
+                          itemName={item.name}
+                          userId={user.id}
+                          variant="outline"
+                          className="border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive"
+                        />
+                      )}
+                    </div>
                   ) : action === "requested" ? (
                     <Button variant="secondary" className="w-full" disabled>
                       <Check /> Requested
